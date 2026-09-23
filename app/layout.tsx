@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "./globals.css";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+import NavBar from "@/components/NavBar";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Course Catalog",
@@ -9,21 +13,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={cn("h-full antialiased", "font-sans", geist.variable)}>
       <body className="min-h-full flex flex-col">
-        <nav className="border-b border-gray-200">
-          <div className="mx-auto max-w-3xl px-6 py-4 flex gap-6">
-            <Link href="/" className="hover:underline">
-              Home
-            </Link>
-            <Link href="/courses" className="hover:underline">
-              Courses
-            </Link>
-            <Link href="/about" className="hover:underline">
-              About
-            </Link>
-          </div>
-        </nav>
+        <NavBar />
         <div className="flex-1">{children}</div>
       </body>
     </html>

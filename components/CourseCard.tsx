@@ -1,13 +1,22 @@
 import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
-type CourseCardProps = {
-  id: string;
+export type CourseCardProps = {
+  id: number | string;
   title: string;
   description: string;
   credits: number;
   likes: number;
 };
 
+// Server Component: no "use client" here
 export default function CourseCard({
   id,
   title,
@@ -16,18 +25,21 @@ export default function CourseCard({
   likes,
 }: CourseCardProps) {
   return (
-    <Link
-      href={`/courses/${id}`}
-      className="block rounded-lg border border-gray-200 p-5 hover:border-gray-400 hover:shadow-sm transition"
-    >
-      <div className="flex items-start justify-between gap-4">
-        <h2 className="text-lg font-semibold">{title}</h2>
-        <span className="whitespace-nowrap text-sm text-gray-500">
-          {credits} credits
-        </span>
-      </div>
-      <p className="mt-2 text-sm text-gray-600">{description}</p>
-      <div className="mt-3 text-sm text-gray-500">❤ {likes}</div>
+    <Link href={`/courses/${id}`}>
+      <Card className="h-full hover:shadow-md hover:border-blue-300 transition">
+        <CardHeader>
+          <CardTitle className="text-lg">{title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">{description}</p>
+        </CardContent>
+        <CardFooter className="flex items-center justify-between">
+          <span className="text-sm">{credits} credits</span>
+          <Button variant="ghost" size="sm">
+            ❤ {likes}
+          </Button>
+        </CardFooter>
+      </Card>
     </Link>
   );
 }
